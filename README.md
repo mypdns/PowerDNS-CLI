@@ -14,6 +14,26 @@ Main changes to the original script:
 * --debug switch
 * Python 3
 
+## Daily usage
+### Adding a CNAME record
+
+`2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
+
+```
+./pdns.py --apikey MyApiKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name 2cnjuh34jbhub.com --content . --ttl 86400 --debug add_record
+2016-09-06 00:05:30,753 pdns         INFO     DNS Record 'www.example.com.' Successfully Added/Update
+```
+
+### Delete CNAME records
+`*.2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
+`2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
+```
+./pdns.py  --apikey MyAPIKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name *.2cnjuh34jbhub.com delete_record
+
+./pdns.py  --apikey MyAPIKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name 2cnjuh34jbhub.com delete_record
+```
+**NOTE**: It is important to delete "sub" CNAME before CNAME, otherwise we leave a record "hanging" in the DataBase
+
 ## Usage:
 
 ### Help:
@@ -92,21 +112,6 @@ The following command adds the A record for the zone NS: `ns1.example.com` with 
 ```
 ./pdns.py  --apikey MyAPIKey --apihost 127.0.0.1 --apiport 80 --zone example.com. --recordType A --name ns1.example.com. --content 172.16.18.15 add_record
 2016-09-05 23:58:05,652 pdns         INFO     DNS Record 'ns1.example.com.' Successfully Added/Updated
-```
-
-### Adding a CNAME record
-
-`2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
-
-```
-./pdns.py --apikey MyApiKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name 2cnjuh34jbhub.com --content . --ttl 86400 --debug add_record
-2016-09-06 00:05:30,753 pdns         INFO     DNS Record 'www.example.com.' Successfully Added/Update
-```
-
-### Delete a CNAME record
-`2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
-```
-./pdns.py  --apikey MyAPIKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name 2cnjuh34jbhub.com delete_record
 ```
 
 #### Digging the zone:
