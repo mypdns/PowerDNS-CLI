@@ -2,6 +2,8 @@
 
 This simple scripts allows you to manage a [PowerDNS](https://www.powerdns.com/) server trought the [REST API](https://doc.powerdns.com/md/httpapi/README/).
 
+This script origiantes from <https://github.com/pbertera/PowerDNS-CLI> all credit for the pdns.py goes to <https://github.com/pbertera>
+
 This script is inspired by the [job](https://github.com/mrlesmithjr/python-powerdns-management) of [Larry Smith Jr.](http://everythingshouldbevirtual.com/).
 
 Main changes to the original script:
@@ -25,7 +27,7 @@ usage: pdns.py [-h] [--apikey APIKEY] [--apihost APIHOST] [--apiport APIPORT]
                [--recordType {A,AAAA,CNAME,MX,NS,PTR,SOA,SRV,TXT,NAPTR}]
                [--setPTR] [--ttl TTL] [--zone ZONE]
                [--zoneType {MASTER,NATIVE,SLAVE}] [--debug]
-               {add_records,add_zones,delete_records,delete_zones,query_config,query_stats,query_zones}
+               {add_record,add_zone,delete_record,delete_zone,query_config,query_stats,query_zones}
 
 PDNS Controls...
 
@@ -94,11 +96,17 @@ The following command adds the A record for the zone NS: `ns1.example.com` with 
 
 ### Adding a CNAME record
 
-`www.example.com`is a `CNAME` pointing to `host.example.com.`:
+`2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
 
 ```
-./pdns.py  --apikey MyAPIKey --apihost 127.0.0.1 --apiport 80 --zone example.com. --recordType CNAME --name www.example.com. --content host.example.com. add_record
+./pdns.py --apikey MyApiKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name 2cnjuh34jbhub.com --content . --ttl 86400 --debug add_record
 2016-09-06 00:05:30,753 pdns         INFO     DNS Record 'www.example.com.' Successfully Added/Update
+```
+
+### Delete a CNAME record
+`2cnjuh34jbhub.com`is a `CNAME` pointing to `.`:
+```
+./pdns.py  --apikey MyAPIKey --apihost 127.0.0.1 --apiport 80 --zone adware.mypdns.cloud. --recordType CNAME --name 2cnjuh34jbhub.com delete_record
 ```
 
 #### Digging the zone:

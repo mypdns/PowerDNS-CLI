@@ -65,21 +65,14 @@ class PDNSControl(object):
         payload = {
             "rrsets": [
                 {
-                    "name": self.args.name + '.' + self.args.zone,
+                    "name": name,
                     "type": self.args.recordType,
                     "changetype": "REPLACE",
                     "ttl": self.args.ttl,
-                    "records": records, [
-                      {
-                      "content": self.args.content,
-                      "disabled": self.args.disabled,
-                      "name": self.args.name + '.' + self.args.zone,
-                      "set-ptr": self.args.setPTR,
-                      "type": self.args.recordType,
-                      "priority": self.args.priority
-                      }
-                    ]
+                    "records": records,
                 }
+            ]
+        }
 
         logger.debug("sending GET request to %s" % self.uri)
         zone_check = requests.get(self.uri, headers=self.headers)
@@ -175,22 +168,13 @@ class PDNSControl(object):
         """
         payload = {
             "rrsets": [
-              {
-                "name": row[0] + '.' + row[1],
-                "type": row[2],
-                "changetype": "REPLACE",
-                "ttl": row[5],
-                "records": [
                 {
-                  "content": row[3],
-                  "disabled": disabled,
-                  "name": row[0] + '.' + row[1],
-                  "set-ptr": set_ptr,
-                  "type": row[2],
-                  "priority": row[7]
-                  }
-                ]
-              }
+                    "name": self.args.name + '.' + self.args.zone,
+                    "type": self.args.recordType,
+                    "changetype": "DELETE",
+                }
+            ]
+        }
 
         logger.debug("sending GET request to %s" % self.uri)
         zone_check = requests.get(self.uri, headers=self.headers)
